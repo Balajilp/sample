@@ -1,0 +1,47 @@
+def img
+pipeline {
+    environment{
+        registry = 'balaji03/sample-calc'
+        registryCredential = 'dockerid'
+        dockerImage = ''
+    }
+    
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-cred', url: 'https://github.com/Balajilp/sample.git']]])
+            }
+        }
+        stage('Build') {
+            steps {
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Balajilp/sample.git'
+                bat 'python main.py'
+            }
+        }
+        stage('Test') {
+            steps {
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Balajilp/sample.git'
+                bat 'python test.py'
+            }
+        }
+        stage("Build Image"){
+            steps{
+                script{
+                    img = registry + ":${env.BUILD_ID}"
+                    println("${img}")
+                    dockerImage = docker.build("${img}")
+                }
+            }
+        }
+        stage("Push to dockerhub"){
+            steps{
+                script{
+                    docker.withRegistry("https://registry.hub.docker.com", registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
