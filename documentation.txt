@@ -1,0 +1,35 @@
+1. Login and configure Jenkins server on your system. Configure Docker for Jenkins pipeline.
+	* Download jenkins from jenkins official website.  configure jenkins on local machine.
+	* Download Docker from dockerhub. configure docker on local machine.
+	* Install the suggested plugin for jenkins configuration.
+	* Download ubuntu 20 distribution for the docker configuration.
+
+
+2. Architect a simple calculator application that supports addition, subtraction and product of two
+positive integers.
+	* Created a virtual Environment and from Pycharm IDE name it is sample.
+	* Created a python file named calc.py
+ 	* Created a sample python program which can perform addition substractiion multiplication.
+
+
+3. Develop the application package with simple unit test cases in Python 3.x
+	* Created a another python file name it as test_calc or calc_test.
+	* import unit test and calc.py file on test_calc.py file.
+ 	* Created a simple unit test cases for this application.
+
+
+4. connection with git
+	* Created unique repository on git name it as sample.
+ 	* Clone the git reposity on our virtual environment.  
+	* Created a docker file which can containerize the application.
+	* upload the file on the local staging area in order to upload on the remote git server.
+	* Then we can upload the files on git remote server using git push commend with the commit message.
+
+5. Jenkins continous integration and continuous deployment {CI & CD}
+	* login on jenkins server.  install the following plugins for the continuous integration and deployment 
+        (Docker, Dockerpipeline, git, cloudbees)
+	* create a new job and select pipeline.  create a jenkins pipeline script which can get contains the 
+	  following operation checking out to the git.  if there is any file present then it trigger will 
+	  trigger the jenkins to build the python application perform unit testing if there is any failure it
+	  will through error other wise it will containerize the application and create a image on it.
+	  and it will run the file and push it to the docker hub.
